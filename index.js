@@ -7,23 +7,18 @@ const clipboardy = require('clipboardy');
 recursiveAsyncReadLine();
 
 function recursiveAsyncReadLine() {
-  readline.question('Please enter px: ', function(answer) {
+  readline.question('Please enter px (or type exit): ', function(answer) {
     if (answer == 'exit') {
       return readline.close();
     }
     clearConsole();
 
-    let rem;
-    try {
-      rem = parseFloat(answer) / 16;
-    } catch (error) {
-      console.log('not a valid input');
-    }
+    const parsedAnswer = parseAnswer(answer);
 
-    console.log(
-      `${answer}px = ${rem}rem \n\nIt has been copied to your clipboard! 😄\n\n`
-    );
-    clipboardy.writeSync(`${rem}rem`);
+    if (parsedAnswer) {
+      const rem = convertToRem(parsedAnswer);
+      printAndCopy(parsedAnswer, rem);
+    }
 
     recursiveAsyncReadLine(); //Calling this function again to ask new question
   });
@@ -33,8 +28,23 @@ function clearConsole() {
   console.log('\033c');
 }
 
-function pbcopy(data) {
-  var proc = require('child_process').spawn('pbcopy');
-  proc.stdin.write(data);
-  proc.stdin.end();
+function parseAnswer(answer) {
+  const output = parseFloat(answer);
+  if (output) {
+    return output;
+  } else {
+    console.log('Not a valid input.\n');
+    return null;
+  }
+}
+
+function convertToRem(px) {
+  return px / 16;
+}
+
+function printAndCopy(px, rem) {
+  console.log(
+    `${px}px = ${rem}rem \n\nIt has been copied to your clipboard! 😄\n\n`
+  );
+  clipboardy.writeSync(`${rem}rem`);
 }
