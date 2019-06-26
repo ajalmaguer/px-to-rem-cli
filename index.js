@@ -4,8 +4,6 @@ const readline = require('readline').createInterface({
 });
 const clipboardy = require('clipboardy');
 
-
-
 recursiveAsyncReadLine();
 
 function recursiveAsyncReadLine() {
@@ -15,7 +13,6 @@ function recursiveAsyncReadLine() {
     }
     clearConsole();
 
-
     let rem;
     try {
       rem = parseFloat(answer) / 16;
@@ -23,7 +20,9 @@ function recursiveAsyncReadLine() {
       console.log('not a valid input');
     }
 
-    console.log(`${answer}px = ${rem}rem \n\nIt has been copied to your clipboard! 😄\n\n`);
+    console.log(
+      `${answer}px = ${rem}rem \n\nIt has been copied to your clipboard! 😄\n\n`
+    );
     clipboardy.writeSync(`${rem}rem`);
 
     recursiveAsyncReadLine(); //Calling this function again to ask new question
@@ -34,8 +33,8 @@ function clearConsole() {
   console.log('\033c');
 }
 
-
 function pbcopy(data) {
-  var proc = require('child_process').spawn('pbcopy'); 
-  proc.stdin.write(data); proc.stdin.end();
+  var proc = require('child_process').spawn('pbcopy');
+  proc.stdin.write(data);
+  proc.stdin.end();
 }
