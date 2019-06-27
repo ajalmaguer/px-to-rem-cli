@@ -58,7 +58,7 @@ function convertToRem(px, base) {
 
 function printAndCopy(px, rem) {
   console.log(
-    `${px}px = ${rem}rem \n\nIt has been copied to your clipboard! 😄\n\n`
+    `${px}px = ${rem}rem \n\nRem value has been copied to your clipboard! 😄\n\n`
   );
   clipboardy.writeSync(`${rem}rem`);
 }
