@@ -2,15 +2,22 @@
   "name": "rem-calculator",
   "version": "1.0.0",
   "description": "",
+  "license": "MIT",
+  "homepage": "https://github.com/ajalmaguer/px-to-rem-cli",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ajalmaguer/px-to-rem-cli.git"
+  },
   "bin": {
     "rem-calculator": "bin/rem-calculator"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": ">=8"
   },
+  "preferGlobal": true,
+  "scripts": {},
   "author": "",
-  "license": "ISC",
   "dependencies": {
     "clipboardy": "^2.1.0"
   }

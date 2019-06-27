@@ -4,9 +4,23 @@ const readline = require('readline').createInterface({
 });
 const clipboardy = require('clipboardy');
 
-recursiveAsyncReadLine();
+let basePx = 16;
 
-function recursiveAsyncReadLine() {
+confirmBasePx();
+
+function confirmBasePx() {
+  readline.question('16px base? Otherwise, enter new base: ', function(answer) {
+    basePx = parseAnswer(answer || basePx);
+
+    if (!basePx) {
+      confirmBasePx();
+    } else {
+      askAndConvert();
+    }
+  });
+}
+
+function askAndConvert() {
   readline.question('Please enter px (or type exit): ', function(answer) {
     if (answer == 'exit') {
       return readline.close();
@@ -16,11 +30,11 @@ function recursiveAsyncReadLine() {
     const parsedAnswer = parseAnswer(answer);
 
     if (parsedAnswer) {
-      const rem = convertToRem(parsedAnswer);
+      const rem = convertToRem(parsedAnswer, basePx);
       printAndCopy(parsedAnswer, rem);
     }
 
-    recursiveAsyncReadLine(); //Calling this function again to ask new question
+    askAndConvert(); //Calling this function again to ask new question
   });
 }
 
@@ -38,8 +52,8 @@ function parseAnswer(answer) {
   }
 }
 
-function convertToRem(px) {
-  return px / 16;
+function convertToRem(px, base) {
+  return px / base;
 }
 
 function printAndCopy(px, rem) {
